@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webcomponents Modal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 1rem
+        }
+    </style>
+</head>
+<body>
+<script src="./modal.js"></script>
+<zap-modal>
+    <p>You are willing to give this modal money! Mesmerize!</p>
+</zap-modal>
+<p>Please confirm your choice</p>
+<button>Click me</button>
+<script>
+    const confirmBtn = document.querySelector("button");
+    const modalEl = document.querySelector("zap-modal");
+
+    function confirmHandler(e) {
+        if(modalEl.getAttribute("opened")) modalEl.removeAttribute("opened");
+        else modalEl.setAttribute("opened", "true");
+    }
+
+    confirmBtn.addEventListener('click', confirmHandler);
+
+
+</script>
+</body>
+</html>

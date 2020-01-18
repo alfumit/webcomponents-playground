@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Working on webcomponents</title>
+</head>
+<body>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    html {
+        --color-primary: #ffb46e;
+        font-family: sans-serif;
+    }
+
+    .warn {
+        background-color: aquamarine;
+    }
+</style>
+
+<script src="index.js"></script>
+<script src="tooltip.js"></script>
+<script src="confirm-link.js"></script>
+
+
+<p>
+    It's interesting to know whether
+    <zap-tooltip class="important" text="Russian wild Gibbons"><span class="warn">Webcomponents</span></zap-tooltip>
+    would finally kill
+    <zap-tooltip text="Or good people?">React</zap-tooltip>
+    which veered to far from web standards
+</p>
+
+<zap-tooltip></zap-tooltip>
+
+<a is="zap-confirm-link" href="http://www.google.com">Google</a>
+<br/>
+<input type="text" name="tText" id="tText" />
+</body>
+</html>
