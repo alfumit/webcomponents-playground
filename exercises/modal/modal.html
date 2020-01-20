@@ -15,8 +15,9 @@
     </style>
 </head>
 <body>
-<script src="./modal.js"></script>
+<script src="modal.js"></script>
 <zap-modal>
+    <h1 slot="title" contenteditable>Special title slot</h1>
     <p>You are willing to give this modal money! Mesmerize!</p>
 </zap-modal>
 <p>Please confirm your choice</p>
@@ -31,6 +32,13 @@
     }
 
     confirmBtn.addEventListener('click', confirmHandler);
+    modalEl.addEventListener("cancel", () => {
+        console.log("Cancelled")
+    });
+
+    modalEl.addEventListener("ok", () => {
+        console.log("Okey-dokey")
+    })
 
 
 </script>

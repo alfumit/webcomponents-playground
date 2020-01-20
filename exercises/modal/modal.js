@@ -1,16 +1,21 @@
+"use strict";
 class Modal extends HTMLElement {
-    // static get observedAttributes() {
-    //     return ['opened'];
-    // }
-
-    private _html = `
+    constructor() {
+        super();
+        // static get observedAttributes() {
+        //     return ['opened'];
+        // }
+        this._html = `
             <style>
                 :host {
-                    display: none;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity .3s ease-in-out;
                 }
                 
                  :host([opened]) {
-                    display: block;
+                    opacity: 1;
+                    pointer-events: all;
                 }
                 
                 #backdrop {
@@ -37,10 +42,13 @@ class Modal extends HTMLElement {
                 
                 header {
                     padding: 1rem;
+                    border-bottom: 1px solid #ccc;
+
                 }
                 
-                header h1 {
+                ::slotted(h1) {
                     font-size: 2.5rem;
+                    margin: 0;
                 }
                 
                 #main {
@@ -60,7 +68,9 @@ class Modal extends HTMLElement {
             <div id="backdrop"></div>
             <div id="modal">
                 <header>
-                    <h1> Please confirm</h1>
+                    <slot name="title">
+                        <h1> Please confirm</h1>                    
+                    </slot>
                 </header>
                 <section id="main">
                     <slot></slot>
@@ -71,35 +81,45 @@ class Modal extends HTMLElement {
                 </section>
             </div>  
         `;
-
-    private isOpened: boolean = false;
-
-    constructor() {
-        super();
-        this.attachShadow({mode: "open"});
+        this.isOpened = false;
+        this.attachShadow({ mode: "open" });
     }
-
     connectedCallback() {
         this.isOpened = !!this.getAttribute("opened");
         this._render();
-        this.shadowRoot!.querySelector('#cancel')!.addEventListener("click", this.cancelHandler.bind(this))
+        this.shadowRoot.querySelector('#cancel').addEventListener("click", this.cancelHandler.bind(this));
+        this.shadowRoot.querySelector('#ok').addEventListener("click", this.confirmHandler.bind(this));
+        this.shadowRoot.querySelector('#backdrop').addEventListener("click", this.cancelHandler.bind(this));
+        const slots = this.shadowRoot.querySelectorAll('slot');
+        slots[0].addEventListener("slotchange", (e) => {
+            console.log(slots[0]);
+        });
     }
-
-    changeAttributeCallback(name: string, oldValue: string, newValue: string) {
-        if (oldValue === newValue) return;
+    changeAttributeCallback(name, oldValue, newValue) {
+        if (oldValue === newValue)
+            return;
         if (name === "opened") {
             return newValue;
         }
     }
-
-    private _render() {
-        this.shadowRoot!.innerHTML = this._html;
+    _render() {
+        this.shadowRoot.innerHTML = this._html;
     }
-
-    private cancelHandler(e: Event): void {
+    hide() {
         this.removeAttribute("opened");
         this.isOpened = false;
     }
+    notify(eventType, el) {
+        const evt = new Event(eventType, { bubbles: true, composed: true });
+        el.dispatchEvent(evt);
+    }
+    cancelHandler(e) {
+        this.hide();
+        this.notify("cancel", e.target);
+    }
+    confirmHandler(e) {
+        this.hide();
+        this.notify("ok", e.target);
+    }
 }
-
 customElements.define('zap-modal', Modal);
