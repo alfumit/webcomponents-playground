@@ -10,53 +10,60 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first': string;
-    /**
-    * The last name
-    */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+  interface ZapSideDrawer {
+    'open': boolean;
+    'openDrawer': () => Promise<void>;
+    'title': string;
+  }
+  interface ZapStockPrice {}
+  interface ZapTooltip {
+    'displayTooltip': boolean;
+    'tooltipText': string;
   }
 }
 
 declare global {
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLZapSideDrawerElement extends Components.ZapSideDrawer, HTMLStencilElement {}
+  var HTMLZapSideDrawerElement: {
+    prototype: HTMLZapSideDrawerElement;
+    new (): HTMLZapSideDrawerElement;
+  };
+
+  interface HTMLZapStockPriceElement extends Components.ZapStockPrice, HTMLStencilElement {}
+  var HTMLZapStockPriceElement: {
+    prototype: HTMLZapStockPriceElement;
+    new (): HTMLZapStockPriceElement;
+  };
+
+  interface HTMLZapTooltipElement extends Components.ZapTooltip, HTMLStencilElement {}
+  var HTMLZapTooltipElement: {
+    prototype: HTMLZapTooltipElement;
+    new (): HTMLZapTooltipElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'zap-side-drawer': HTMLZapSideDrawerElement;
+    'zap-stock-price': HTMLZapStockPriceElement;
+    'zap-tooltip': HTMLZapTooltipElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface MyComponent {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+  interface ZapSideDrawer {
+    'open'?: boolean;
+    'title'?: string;
+  }
+  interface ZapStockPrice {}
+  interface ZapTooltip {
+    'displayTooltip'?: boolean;
+    'tooltipText'?: string;
   }
 
   interface IntrinsicElements {
-    'my-component': MyComponent;
+    'zap-side-drawer': ZapSideDrawer;
+    'zap-stock-price': ZapStockPrice;
+    'zap-tooltip': ZapTooltip;
   }
 }
 
@@ -66,7 +73,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-      'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+      'zap-side-drawer': LocalJSX.ZapSideDrawer & JSXBase.HTMLAttributes<HTMLZapSideDrawerElement>;
+      'zap-stock-price': LocalJSX.ZapStockPrice & JSXBase.HTMLAttributes<HTMLZapStockPriceElement>;
+      'zap-tooltip': LocalJSX.ZapTooltip & JSXBase.HTMLAttributes<HTMLZapTooltipElement>;
     }
   }
 }

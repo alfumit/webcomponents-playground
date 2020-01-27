@@ -7,11 +7,54 @@
 
   <script type="module" src="/build/lea.esm.js"></script>
   <script nomodule src="/build/lea.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0 auto;
+      width: 80%;
+    }
 
+    .side-nav ul {
+      list-style: none;
+    }
+
+    .side-nav li {
+      margin: 1rem 0;
+    }
+
+    .side-nav a {
+      text-decoration: none;
+      color: black;
+    }
+
+  </style>
 </head>
 <body>
+  <button id="side-drawer-btn" style="float: right">Toggle</button>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+  <zap-side-drawer x-title="BeSides Menu">
+    <nav class="side-nav">
+      <ul>
+        <li><a href="/page1">Link 1</a></li>
+        <li><a href="/page2">Link 2</a></li>
+        <li><a href="/page3">Link 3</a></li>
+      </ul>
+    </nav>
+  </zap-side-drawer>
+  <zap-tooltip tooltip-text="A menu that sticks to both sides!">What is BiSides menu</zap-tooltip>
+  <script>
+    const zapEl = document.querySelector('zap-side-drawer');
+    const drawerBtn = document.querySelector("#side-drawer-btn").addEventListener("click", () => {
+      if(zapEl.open) {
+        zapEl.open = false;
+      } else {
+        zapEl.openDrawer()
+      }
+    })
+    // setTimeout(() => zapEl.title = "ooopsie", 3000)
+  </script>
 
+  <hr/>
+  <zap-stock-price></zap-stock-price>
 </body>
 </html>
