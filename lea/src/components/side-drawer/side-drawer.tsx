@@ -8,6 +8,9 @@ import {Component, h, Method, Prop, State} from "@stencil/core";
 export class SideDrawer {
   @Prop({attribute: "x-title", reflect: true, mutable: true}) title: string;
   @Prop({attribute: "open", reflect: true, mutable: true}) open: boolean = false;
+  @Prop({attribute: "pull-text"}) pullText: string = "Side Menu";
+  @Prop() stickDirection: 'left' | 'right' = 'left';
+
   @State() activeTab: 'navigation' | 'contactInfo' = 'navigation';
 
   render() {
@@ -27,7 +30,13 @@ export class SideDrawer {
 
     return [
       <div id="backdrop" onClick={(e: Event) => this.closeHandler(e)} />,
-      <aside>
+      <div id="drawer-pull" class={`stick-${this.stickDirection}`}>
+        <div>
+          <p onClick={this.openDrawer.bind(this)}>{this.pullText}</p>
+          <button onClick={this.changeStick.bind(this)}>Stick to the other side</button>
+        </div>
+      </div>,
+      <aside class={`stick-${this.stickDirection}`}>
         <header>
           <h1>{this.title}</h1>
           <button onClick={this.closeHandler.bind(this)}>X</button>
@@ -58,6 +67,15 @@ export class SideDrawer {
   @Method()
   openDrawer() {
     this.open = true;
+  }
+
+  @Method()
+  changeStick() {
+    if(this.stickDirection === 'left') {
+      this.stickDirection = 'right';
+    } else {
+      this.stickDirection = 'left';
+    }
   }
 
 }

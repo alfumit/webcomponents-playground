@@ -11,8 +11,11 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface ZapSideDrawer {
+    'changeStick': () => Promise<void>;
     'open': boolean;
     'openDrawer': () => Promise<void>;
+    'pullText': string;
+    'stickDirection': 'left' | 'right';
     'title': string;
   }
   interface ZapStockPrice {}
@@ -52,6 +55,8 @@ declare global {
 declare namespace LocalJSX {
   interface ZapSideDrawer {
     'open'?: boolean;
+    'pullText'?: string;
+    'stickDirection'?: 'left' | 'right';
     'title'?: string;
   }
   interface ZapStockPrice {}

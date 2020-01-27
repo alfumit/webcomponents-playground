@@ -1,6 +1,6 @@
 :host > span {
   position: relative;
-  margin: 2rem;
+  margin: 2rem 0;
 }
 
 .tooltip-icon {

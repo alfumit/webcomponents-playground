@@ -10,7 +10,7 @@
   <style>
     body {
       font-family: sans-serif;
-      margin: 0 auto;
+      margin: 2rem auto;
       width: 80%;
     }
 
@@ -30,9 +30,7 @@
   </style>
 </head>
 <body>
-  <button id="side-drawer-btn" style="float: right">Toggle</button>
-
-  <zap-side-drawer x-title="BeSides Menu">
+  <zap-side-drawer x-title="BiSides Menu" pull-text="BiSides Menu" stick-direction="left">
     <nav class="side-nav">
       <ul>
         <li><a href="/page1">Link 1</a></li>
@@ -42,18 +40,6 @@
     </nav>
   </zap-side-drawer>
   <zap-tooltip tooltip-text="A menu that sticks to both sides!">What is BiSides menu</zap-tooltip>
-  <script>
-    const zapEl = document.querySelector('zap-side-drawer');
-    const drawerBtn = document.querySelector("#side-drawer-btn").addEventListener("click", () => {
-      if(zapEl.open) {
-        zapEl.open = false;
-      } else {
-        zapEl.openDrawer()
-      }
-    })
-    // setTimeout(() => zapEl.title = "ooopsie", 3000)
-  </script>
-
   <hr/>
   <zap-stock-price></zap-stock-price>
 </body>
