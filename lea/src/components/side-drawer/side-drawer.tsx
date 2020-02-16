@@ -2,7 +2,7 @@ import {Component, h, Method, Prop, State} from "@stencil/core";
 
 @Component({
   tag: "zap-side-drawer",
-  styleUrl: "./side-drawer.css",
+  styleUrl: "side-drawer.css",
   shadow: true
 })
 export class SideDrawer {

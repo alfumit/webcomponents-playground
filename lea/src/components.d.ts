@@ -18,7 +18,9 @@ export namespace Components {
     'stickDirection': 'left' | 'right';
     'title': string;
   }
-  interface ZapStockPrice {}
+  interface ZapStockPrice {
+    'stockSymbolProp': string;
+  }
   interface ZapTooltip {
     'displayTooltip': boolean;
     'tooltipText': string;
@@ -59,7 +61,9 @@ declare namespace LocalJSX {
     'stickDirection'?: 'left' | 'right';
     'title'?: string;
   }
-  interface ZapStockPrice {}
+  interface ZapStockPrice {
+    'stockSymbolProp'?: string;
+  }
   interface ZapTooltip {
     'displayTooltip'?: boolean;
     'tooltipText'?: string;
