@@ -1,4 +1,4 @@
-import {Component, h, Prop, State, Watch} from '@stencil/core';
+import {Component, h, Listen, Prop, State, Watch} from '@stencil/core';
 import { STOCK_API_KEY } from '../../../../stock-api-key.js'
 
 interface QuoteResponse {
@@ -9,13 +9,14 @@ interface QuoteResponse {
 
 @Component({
   tag: 'zap-stock-price',
-  styleUrl: 'stock-price.css',
+  styleUrl: 'stock-price.scss',
   shadow: true
 })
 export class StockPrice {
   @State() stockPrice: number = 0;
   @State() stockInput: string = '';
   @State() error: string = '';
+  @State() loading = false;
 
   @Prop({mutable: true, reflect: true}) stockSymbolProp: string = '';
 
@@ -44,18 +45,36 @@ export class StockPrice {
     this.stockInput = (event.target as HTMLInputElement).value;
   }
 
+  hostData() {
+    return { class:  this.error ? 'error': ''}
+  }
+
+  @Listen('zapStockSymbol', {target: 'body'})
+  onStockSymbolSelected(event: CustomEvent) {
+    if(event && event.detail !== this.stockSymbolProp) {
+      this.stockSymbolProp = event.detail;
+    }
+  }
+
   private fetchStockInfo(stockSymbol) {
+    this.error = null;
+    this.stockPrice = null;
+    this.loading = true;
+
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${STOCK_API_KEY}`)
       .then((res) => res.json())
       .then((res: QuoteResponse) => {
         if (!res['Global Quote']) {
           throw new Error('Invalid symbol entered');
         }
-        this.error = null;
         this.stockPrice = +res['Global Quote']['05. price'];
       })
       .catch(err => {
         this.error = err.message;
+        this.stockPrice = null;
+      })
+      .finally(() => {
+        this.loading = false;
       })
   }
 
@@ -65,13 +84,15 @@ export class StockPrice {
       stockMessage =  <p>Stock Price is {this.stockPrice}</p>
     } else if(this.error) {
       stockMessage =  <p>{this.error}</p>
+    } else if(this.loading) {
+      stockMessage = (<zap-spinner></zap-spinner>);
     }
     return [
       <form onSubmit={this.submitHandler.bind(this)}>
         <input type="text" id="symbol"
                value={this.stockInput}
                onInput={this.onSymbolInput.bind(this)} />
-        <button type="submit">Fetch Data</button>
+        <button type="submit" disabled={this.loading}>Fetch Data</button>
       </form>,
       <div>{stockMessage}</div>]
   }

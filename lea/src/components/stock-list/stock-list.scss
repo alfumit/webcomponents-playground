@@ -1,0 +1,18 @@
+ul {
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: .25rem;
+    margin: .25rem 0;
+    border: 1px dotted black;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      background-color: #630a80;
+      border-color: #cccccc;
+      color: white;
+    }
+  }
+}

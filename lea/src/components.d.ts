@@ -18,6 +18,11 @@ export namespace Components {
     'stickDirection': 'left' | 'right';
     'title': string;
   }
+  interface ZapSpinner {}
+  interface ZapStockFinder {}
+  interface ZapStockList {
+    'stockX': object[];
+  }
   interface ZapStockPrice {
     'stockSymbolProp': string;
   }
@@ -36,6 +41,24 @@ declare global {
     new (): HTMLZapSideDrawerElement;
   };
 
+  interface HTMLZapSpinnerElement extends Components.ZapSpinner, HTMLStencilElement {}
+  var HTMLZapSpinnerElement: {
+    prototype: HTMLZapSpinnerElement;
+    new (): HTMLZapSpinnerElement;
+  };
+
+  interface HTMLZapStockFinderElement extends Components.ZapStockFinder, HTMLStencilElement {}
+  var HTMLZapStockFinderElement: {
+    prototype: HTMLZapStockFinderElement;
+    new (): HTMLZapStockFinderElement;
+  };
+
+  interface HTMLZapStockListElement extends Components.ZapStockList, HTMLStencilElement {}
+  var HTMLZapStockListElement: {
+    prototype: HTMLZapStockListElement;
+    new (): HTMLZapStockListElement;
+  };
+
   interface HTMLZapStockPriceElement extends Components.ZapStockPrice, HTMLStencilElement {}
   var HTMLZapStockPriceElement: {
     prototype: HTMLZapStockPriceElement;
@@ -49,6 +72,9 @@ declare global {
   };
   interface HTMLElementTagNameMap {
     'zap-side-drawer': HTMLZapSideDrawerElement;
+    'zap-spinner': HTMLZapSpinnerElement;
+    'zap-stock-finder': HTMLZapStockFinderElement;
+    'zap-stock-list': HTMLZapStockListElement;
     'zap-stock-price': HTMLZapStockPriceElement;
     'zap-tooltip': HTMLZapTooltipElement;
   }
@@ -61,6 +87,12 @@ declare namespace LocalJSX {
     'stickDirection'?: 'left' | 'right';
     'title'?: string;
   }
+  interface ZapSpinner {}
+  interface ZapStockFinder {}
+  interface ZapStockList {
+    'onZapStockSymbol'?: (event: CustomEvent<string>) => void;
+    'stockX'?: object[];
+  }
   interface ZapStockPrice {
     'stockSymbolProp'?: string;
   }
@@ -71,6 +103,9 @@ declare namespace LocalJSX {
 
   interface IntrinsicElements {
     'zap-side-drawer': ZapSideDrawer;
+    'zap-spinner': ZapSpinner;
+    'zap-stock-finder': ZapStockFinder;
+    'zap-stock-list': ZapStockList;
     'zap-stock-price': ZapStockPrice;
     'zap-tooltip': ZapTooltip;
   }
@@ -83,6 +118,9 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'zap-side-drawer': LocalJSX.ZapSideDrawer & JSXBase.HTMLAttributes<HTMLZapSideDrawerElement>;
+      'zap-spinner': LocalJSX.ZapSpinner & JSXBase.HTMLAttributes<HTMLZapSpinnerElement>;
+      'zap-stock-finder': LocalJSX.ZapStockFinder & JSXBase.HTMLAttributes<HTMLZapStockFinderElement>;
+      'zap-stock-list': LocalJSX.ZapStockList & JSXBase.HTMLAttributes<HTMLZapStockListElement>;
       'zap-stock-price': LocalJSX.ZapStockPrice & JSXBase.HTMLAttributes<HTMLZapStockPriceElement>;
       'zap-tooltip': LocalJSX.ZapTooltip & JSXBase.HTMLAttributes<HTMLZapTooltipElement>;
     }
