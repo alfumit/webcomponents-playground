@@ -19,10 +19,14 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "serve": "node ./node_modules/http-server/bin/http-server ./www"
   },
   "devDependencies": {
     "@stencil/core": "^1.8.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.12.1"
+  }
 }
