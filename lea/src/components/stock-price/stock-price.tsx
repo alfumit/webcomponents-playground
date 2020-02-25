@@ -1,5 +1,5 @@
 import {Component, h, Listen, Prop, State, Watch} from '@stencil/core';
-import { STOCK_API_KEY } from '../../../../stock-api-key.js'
+import * as stock from '../../../../stock-api-key.js'
 
 interface QuoteResponse {
   'Global Quote': {
@@ -61,8 +61,8 @@ export class StockPrice {
     this.stockPrice = null;
     this.loading = true;
     let stockUrl = '';
-    if(STOCK_API_KEY) {
-      stockUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${STOCK_API_KEY}`;
+    if(stock.STOCK_API_KEY) {
+      stockUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${stock.STOCK_API_KEY}`;
     } else {
       stockUrl = `/stockdata?symbol=${stockSymbol}`;
     }

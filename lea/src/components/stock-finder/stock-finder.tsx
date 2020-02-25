@@ -1,5 +1,5 @@
 import {Component, h, State} from '@stencil/core';
-import { STOCK_API_KEY } from "../../../../stock-api-key";
+import * as stock from "../../../../stock-api-key";
 
 @Component({
   tag: 'zap-stock-finder',
@@ -17,8 +17,8 @@ export class stockFinder {
     this.loading = true;
     const name = this.searchName.value;
     let stockUrl = '';
-    if(STOCK_API_KEY) {
-      stockUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${name}&apikey=${STOCK_API_KEY}`
+    if(stock.STOCK_API_KEY) {
+      stockUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${name}&apikey=${stock.STOCK_API_KEY}`
     } else {
       //TODO: create  stock info endpoint on the server
       stockUrl = `/stockinfo?name=${name}`;

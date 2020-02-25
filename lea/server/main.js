@@ -1,10 +1,9 @@
-import { STOCK_API_KEY } from "../../stock-api-key.js";
-
+import * as stock from "../../stock-api-key.js";
 const express = require('express');
 const app = express();
-const port = 3334;
+const port = process.env.PORT || 3334;
 const fetch = require('node-fetch');
-const apiKey = process.env['STOCK_API_KEY'] || STOCK_API_KEY;
+const apiKey = process.env['STOCK_API_KEY'] || stock.STOCK_API_KEY;
 
 app.use(express.static('../www'));
 app.get('/stockdata', (req, res) => {
