@@ -60,8 +60,14 @@ export class StockPrice {
     this.error = null;
     this.stockPrice = null;
     this.loading = true;
+    let stockUrl = '';
+    if(STOCK_API_KEY) {
+      stockUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${STOCK_API_KEY}`;
+    } else {
+      stockUrl = `/stockdata?symbol=${stockSymbol}`;
+    }
 
-    fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${STOCK_API_KEY}`)
+    fetch(stockUrl)
       .then((res) => res.json())
       .then((res: QuoteResponse) => {
         if (!res['Global Quote']) {

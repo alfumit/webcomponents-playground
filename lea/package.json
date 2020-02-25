@@ -20,10 +20,11 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "serve": "node ./node_modules/http-server/bin/http-server ./www"
+    "serve": "cd server && npm start"
   },
   "devDependencies": {
-    "@stencil/core": "^1.8.4"
+    "@stencil/core": "^1.8.4",
+    "@types/node": "^13.7.4"
   },
   "license": "MIT",
   "dependencies": {

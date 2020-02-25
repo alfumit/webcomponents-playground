@@ -16,7 +16,15 @@ export class stockFinder {
     event.preventDefault();
     this.loading = true;
     const name = this.searchName.value;
-    fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${name}&apikey=${STOCK_API_KEY}`)
+    let stockUrl = '';
+    if(STOCK_API_KEY) {
+      stockUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${name}&apikey=${STOCK_API_KEY}`
+    } else {
+      //TODO: create  stock info endpoint on the server
+      stockUrl = `/stockinfo?name=${name}`;
+    }
+
+    fetch(stockUrl)
       .then(res => res.json())
       .then(res => {
         const matches = res['bestMatches'];
