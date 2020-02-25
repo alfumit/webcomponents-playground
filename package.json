@@ -1,0 +1,19 @@
+{
+  "name": "webcomponents-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stock-api-key.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfumit/webcomponents-playground.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alfumit/webcomponents-playground/issues"
+  },
+  "homepage": "https://github.com/alfumit/webcomponents-playground#readme"
+}
